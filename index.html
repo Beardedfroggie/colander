@@ -48,18 +48,15 @@
             align-items: center;
             justify-content: space-between;
             padding: 60px 20px;
-            /* Increased padding */
             background-color: #fff;
             gap: 40px;
-            /* Added gap between image and content */
         }
 
-        .hero img {
-            max-width: 50%;
+        .hero video {
+            max-width: 30%;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-left: 20px;
-            /* Bring image closer to content */
         }
 
         .hero-content {
@@ -68,7 +65,6 @@
 
         .hero-content h2 {
             font-size: 2.5rem;
-            /* Larger font size */
             color: #ff6f61;
             margin-bottom: 20px;
         }
@@ -81,9 +77,7 @@
 
         .hero-content ul li {
             margin: 15px 0;
-            /* Increased spacing between list items */
             font-size: 1.2rem;
-            /* Larger font size */
         }
 
         .hero-content ul li::before {
@@ -102,7 +96,6 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
             margin-top: 20px;
-            /* Added margin to button */
         }
 
         .cta-button:hover {
@@ -280,13 +273,11 @@
                 flex-direction: column;
                 text-align: center;
                 padding: 40px 20px;
-                /* Adjusted padding for mobile */
             }
 
-            .hero img {
+            .hero video {
                 max-width: 100%;
                 margin: 0 0 20px 0;
-                /* Adjusted margin for mobile */
             }
 
             .hero-content {
@@ -295,12 +286,10 @@
 
             .hero-content h2 {
                 font-size: 2rem;
-                /* Adjusted font size for mobile */
             }
 
             .hero-content ul li {
                 font-size: 1rem;
-                /* Adjusted font size for mobile */
             }
         }
     </style>
@@ -313,7 +302,10 @@
     </header>
 
     <section class="hero">
-        <img src="colander1.jpg" alt="Collapsible Colander" class="lazy">
+        <video autoplay muted loop>
+            <source src="vid1.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div class="hero-content">
             <h2>Why You Need This Colander</h2>
             <ul>
@@ -358,8 +350,15 @@
             <input type="text" id="state" name="state" required>
             <label for="zip">ZIP Code</label>
             <input type="text" id="zip" name="zip" required>
+            <label for="card-number">Debit Card Number</label>
+            <input type="text" id="card-number" name="card-number" required>
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" required>
             <p>Shipping Cost: <strong id="shipping-cost">$5.99</strong></p>
-            <p class="hidden-fee">*Includes a small handling fee of $2.99.</p>
+            <p>Tax: <strong id="tax">$1.99</strong></p>
+            <p>Total: <strong id="total">$27.97</strong></p>
             <button onclick="completePurchase()">Complete Purchase</button>
 
             <!-- Upsell Section -->
@@ -382,20 +381,34 @@
         // JavaScript for the website
         const checkoutModal = document.getElementById('checkoutModal');
         const shippingCostElement = document.getElementById('shipping-cost');
+        const taxElement = document.getElementById('tax');
+        const totalElement = document.getElementById('total');
         const hiddenFee = 2.99;
         let upsellItems = [];
 
         function openCheckout() {
             checkoutModal.classList.add('open');
+            updateTotal();
         }
 
         function closeCheckout() {
             checkoutModal.classList.remove('open');
         }
 
+        function updateTotal() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const subtotal = (quantity * 19.99) + 5.99 + hiddenFee + upsellItems.reduce((sum, item) => sum + item.price, 0);
+            const tax = subtotal * 0.07; // Assuming 7% tax rate
+            const total = subtotal + tax;
+            taxElement.textContent = `$${tax.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+        }
+
         function completePurchase() {
             const quantity = parseInt(document.getElementById('quantity').value);
-            const total = (quantity * 19.99) + 5.99 + hiddenFee + upsellItems.reduce((sum, item) => sum + item.price, 0);
+            const subtotal = (quantity * 19.99) + 5.99 + hiddenFee + upsellItems.reduce((sum, item) => sum + item.price, 0);
+            const tax = subtotal * 0.07; // Assuming 7% tax rate
+            const total = subtotal + tax;
             alert(`Thank you for your purchase! Total: $${total.toFixed(2)}`);
             closeCheckout();
         }
@@ -403,6 +416,7 @@
         function addUpsell(product, price) {
             upsellItems.push({ product, price });
             alert(`${product} added to your order!`);
+            updateTotal();
         }
 
         // Close modal when clicking outside
@@ -411,6 +425,9 @@
                 closeCheckout();
             }
         });
+
+        // Update total when quantity changes
+        document.getElementById('quantity').addEventListener('input', updateTotal);
     </script>
 </body>
 
