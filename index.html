@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="MyShop - Your one-stop shop for the best products. Explore our wide range of high-quality items at affordable prices.">
+    <meta name="keywords" content="ecommerce, online shopping, buy products, affordable prices, MyShop">
+    <meta name="author" content="MyShop">
+    <meta property="og:title" content="MyShop - Best Online Store">
+    <meta property="og:description" content="Shop the best products online at MyShop. Fast delivery and great prices!">
+    <meta property="og:image" content="https://yourshop.com/logo.png">
+    <meta property="og:url" content="https://yourshop.com">
+    <link rel="canonical" href="https://yourshop.com">
+    <title>MyShop - Best Online Store</title>
+    <style>
+        /* CSS for the website */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #555;
+        }
+
+        .cart-dropdown,
+        .wishlist-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .cart-dropdown.open,
+        .wishlist-dropdown.open {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cart-dropdown h3,
+        .wishlist-dropdown h3 {
+            margin: 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-dropdown ul,
+        .wishlist-dropdown ul {
+            list-style: none;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .cart-dropdown ul li,
+        .wishlist-dropdown ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .cart-dropdown ul li button,
+        .wishlist-dropdown ul li button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-dropdown ul li button:hover,
+        .wishlist-dropdown ul li button:hover {
+            background-color: #c82333;
+        }
+
+        .cart-dropdown .cart-actions,
+        .wishlist-dropdown .wishlist-actions {
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            text-align: right;
+        }
+
+        .cart-dropdown .cart-actions button,
+        .wishlist-dropdown .wishlist-actions button {
+            margin-left: 10px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .product.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .product img.loaded {
+            opacity: 1;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .reviews {
+            margin-top: 20px;
+        }
+
+        .reviews h4 {
+            margin-bottom: 10px;
+        }
+
+        .reviews ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .reviews ul li {
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reviews ul li.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .product {
+                width: calc(50% - 20px);
+            }
+
+            nav ul li a {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .cart-dropdown,
+            .wishlist-dropdown {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product {
+                width: 100%;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            nav ul li a {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .cart-dropdown,
+            .wishlist-dropdown {
+                width: 100%;
+                right: 0;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">collapsible collander shop</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li>
+                    <a href="#cart" onclick="toggleCartDropdown()">Cart (<span id="cart-count">0</span>)</a>
+                    <div class="cart-dropdown" id="cart-dropdown">
+                        <h3>Your Cart</h3>
+                        <ul id="cart-items">
+                            <!-- Cart items will be dynamically added here -->
+                        </ul>
+                        <div class="cart-actions">
+                            <button onclick="checkout()">Checkout</button>
+                            <button onclick="clearCart()">Clear Cart</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#wishlist" onclick="toggleWishlistDropdown()">Wishlist (<span
+                            id="wishlist-count">0</span>)</a>
+                    <div class="wishlist-dropdown" id="wishlist-dropdown">
+                        <h3>Your Wishlist</h3>
+                        <ul id="wishlist-items">
+                            <!-- Wishlist items will be dynamically added here -->
+                        </ul>
+                        <div class="wishlist-actions">
+                            <button onclick="clearWishlist()">Clear Wishlist</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Welcome to MyShop</h1>
+        <p>Your one-stop shop for the best collapsible collanders in the market.</p>
+    </section>
+
+    <section id="products">
+        <h2>Featured Products</h2>
+        <div class="product-list">
+            <div class="product" data-id="1">
+                <img data-src="colander1.jpg" alt="Product 1" class="lazy">
+                <h3>Product 1</h3>
+                <p>$19.99</p>
+                <button onclick="addToCart('Product 1', 19.99)">Add to Cart</button>
+                <button onclick="addToWishlist('Product 1')">Add to Wishlist</button>
+                <div class="reviews">
+                    <h4>Reviews</h4>
+                    <ul id="reviews-1">
+                        <!-- Reviews for Product 1 -->
+                    </ul>
+                    <form onsubmit="submitReview(event, '1')">
+                        <input type="text" placeholder="Your name" required>
+                        <textarea placeholder="Your review" required></textarea>
+                        <button type="submit">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+            <div class="product" data-id="2">
+                <img data-src="product2.jpg" alt="Product 2" class="lazy">
+                <h3>Product 2</h3>
+                <p>$29.99</p>
+                <button onclick="addToCart('Product 2', 29.99)">Add to Cart</button>
+                <button onclick="addToWishlist('Product 2')">Add to Wishlist</button>
+                <div class="reviews">
+                    <h4>Reviews</h4>
+                    <ul id="reviews-2">
+                        <!-- Reviews for Product 2 -->
+                    </ul>
+                    <form onsubmit="submitReview(event, '2')">
+                        <input type="text" placeholder="Your name" required>
+                        <textarea placeholder="Your review" required></textarea>
+                        <button type="submit">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Add more products as needed -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 MyShop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for the website
+        let cart = [];
+        let wishlist = [];
+        let total = 0;
+
+        // Add to cart functionality
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            total += price;
+            updateCart();
+        }
+
+        // Update cart UI
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${item.name} - $${item.price.toFixed(2)} x ${item.quantity}
+                    <button onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartItems.appendChild(li);
+            });
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            const item = cart[index];
+            total -= item.price * item.quantity;
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Clear cart
+        function clearCart() {
+            cart = [];
+            total = 0;
+            updateCart();
+        }
+
+        // Checkout functionality
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+            } else {
+                alert(`Thank you for your purchase! Total: $${total.toFixed(2)}`);
+                clearCart();
+            }
+        }
+
+        // Toggle cart dropdown
+        function toggleCartDropdown() {
+            const dropdown = document.getElementById('cart-dropdown');
+            dropdown.classList.toggle('open');
+        }
+
+        // Add to wishlist functionality
+        function addToWishlist(name) {
+            if (!wishlist.includes(name)) {
+                wishlist.push(name);
+                updateWishlist();
+            }
+        }
+
+        // Update wishlist UI
+        function updateWishlist() {
+            const wishlistItems = document.getElementById('wishlist-items');
+            const wishlistCount = document.getElementById('wishlist-count');
+            wishlistItems.innerHTML = '';
+            wishlist.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${item}
+                    <button onclick="removeFromWishlist(${index})">Remove</button>
+                `;
+                wishlistItems.appendChild(li);
+            });
+            wishlistCount.textContent = wishlist.length;
+        }
+
+        // Remove item from wishlist
+        function removeFromWishlist(index) {
+            wishlist.splice(index, 1);
+            updateWishlist();
+        }
+
+        // Clear wishlist
+        function clearWishlist() {
+            wishlist = [];
+            updateWishlist();
+        }
+
+        // Toggle wishlist dropdown
+        function toggleWishlistDropdown() {
+            const dropdown = document.getElementById('wishlist-dropdown');
+            dropdown.classList.toggle('open');
+        }
+
+        // Submit review functionality
+        function submitReview(event, productId) {
+            event.preventDefault();
+            const form = event.target;
+            const name = form.querySelector('input').value;
+            const review = form.querySelector('textarea').value;
+            const reviewsList = document.getElementById(`reviews-${productId}`);
+            const li = document.createElement('li');
+            li.textContent = `${name}: ${review}`;
+            li.classList.add('visible');
+            reviewsList.appendChild(li);
+            form.reset();
+        }
+
+        // Lazy loading for images
+        document.addEventListener("DOMContentLoaded", function () {
+            const lazyImages = document.querySelectorAll('img.lazy');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => {
+                observer.observe(img);
+            });
+
+            // Animate product cards
+            const products = document.querySelectorAll('.product');
+            products.forEach((product, index) => {
+                setTimeout(() => {
+                    product.classList.add('visible');
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+
+</html>
