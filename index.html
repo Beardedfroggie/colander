@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="MyShop - Your one-stop shop for the best products. Explore our wide range of high-quality items at affordable prices.">
-    <meta name="keywords" content="ecommerce, online shopping, buy products, affordable prices, MyShop">
-    <meta name="author" content="MyShop">
-    <meta property="og:title" content="MyShop - Best Online Store">
-    <meta property="og:description" content="Shop the best products online at MyShop. Fast delivery and great prices!">
-    <meta property="og:image" content="https://yourshop.com/logo.png">
-    <meta property="og:url" content="https://yourshop.com">
-    <link rel="canonical" href="https://yourshop.com">
-    <title>MyShop - Best Online Store</title>
+        content="Collapsible Colander - The revolutionary kitchen tool that saves space and time. Limited stock available!">
+    <meta name="keywords" content="collapsible colander, space-saving colander, kitchen tool, must-have colander">
+    <meta name="author" content="Kitchen Innovations">
+    <meta property="og:title" content="Collapsible Colander - The Must-Have Kitchen Tool">
+    <meta property="og:description"
+        content="The collapsible colander that saves space and makes your life easier. Get yours today!">
+    <meta property="og:image" content="https://yourwebsite.com/colander.jpg">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <link rel="canonical" href="https://yourwebsite.com">
+    <title>Collapsible Colander - The Must-Have Kitchen Tool</title>
     <style>
         /* CSS for the website */
         body {
@@ -21,253 +22,285 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
         header {
-            background-color: #333;
+            background-color: #ff6f61;
             color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
+            padding: 20px;
+            text-align: center;
         }
 
-        header .logo {
-            font-size: 24px;
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 10px 0 0;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 20px;
+            /* Increased padding */
+            background-color: #fff;
+            gap: 40px;
+            /* Added gap between image and content */
+        }
+
+        .hero img {
+            max-width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            /* Bring image closer to content */
+        }
+
+        .hero-content {
+            max-width: 45%;
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            /* Larger font size */
+            color: #ff6f61;
+            margin-bottom: 20px;
+        }
+
+        .hero-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .hero-content ul li {
+            margin: 15px 0;
+            /* Increased spacing between list items */
+            font-size: 1.2rem;
+            /* Larger font size */
+        }
+
+        .hero-content ul li::before {
+            content: "✔";
+            color: #ff6f61;
+            margin-right: 10px;
+        }
+
+        .cta-button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            /* Added margin to button */
+        }
+
+        .cta-button:hover {
+            background-color: #e65a50;
+        }
+
+        .testimonials {
+            padding: 40px 20px;
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2rem;
+            color: #ff6f61;
+        }
+
+        .testimonial {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial p {
+            font-style: italic;
+        }
+
+        .testimonial span {
+            display: block;
+            margin-top: 10px;
             font-weight: bold;
         }
 
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
+        .scarcity {
+            padding: 40px 20px;
+            background-color: #fff;
+            text-align: center;
         }
 
-        nav ul li {
-            margin-left: 20px;
-            position: relative;
+        .scarcity h2 {
+            font-size: 2rem;
+            color: #ff6f61;
         }
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-            transition: background-color 0.3s ease;
+        .scarcity p {
+            font-size: 1.2rem;
         }
 
-        nav ul li a:hover {
-            background-color: #555;
-        }
-
-        .cart-dropdown,
-        .wishlist-dropdown {
+        .checkout-modal {
             display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            border: 1px solid #ddd;
-            width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .cart-dropdown.open,
-        .wishlist-dropdown.open {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .cart-dropdown h3,
-        .wishlist-dropdown h3 {
-            margin: 0;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .cart-dropdown ul,
-        .wishlist-dropdown ul {
-            list-style: none;
-            margin: 0;
-            padding: 10px;
-        }
-
-        .cart-dropdown ul li,
-        .wishlist-dropdown ul li {
-            display: flex;
-            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
             align-items: center;
-            padding: 5px 0;
+            z-index: 1000;
         }
 
-        .cart-dropdown ul li button,
-        .wishlist-dropdown ul li button {
-            background-color: #dc3545;
+        .checkout-modal.open {
+            display: flex;
+        }
+
+        .checkout-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .checkout-content h2 {
+            font-size: 1.8rem;
+            color: #ff6f61;
+            margin-bottom: 20px;
+        }
+
+        .checkout-content label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .checkout-content input,
+        .checkout-content select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .checkout-content button {
+            background-color: #ff6f61;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
             cursor: pointer;
+            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        .cart-dropdown ul li button:hover,
-        .wishlist-dropdown ul li button:hover {
-            background-color: #c82333;
+        .checkout-content button:hover {
+            background-color: #e65a50;
         }
 
-        .cart-dropdown .cart-actions,
-        .wishlist-dropdown .wishlist-actions {
-            padding: 10px;
-            border-top: 1px solid #ddd;
-            text-align: right;
-        }
-
-        .cart-dropdown .cart-actions button,
-        .wishlist-dropdown .wishlist-actions button {
-            margin-left: 10px;
-        }
-
-        section {
+        .upsell {
+            margin-top: 20px;
             padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
         }
 
-        .product-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+        .upsell h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
         }
 
-        .product {
-            border: 1px solid #ddd;
-            padding: 10px;
-            width: calc(33.333% - 20px);
-            box-sizing: border-box;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+        .upsell p {
+            font-size: 1rem;
+            color: #666;
         }
 
-        .product.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .product img {
-            max-width: 100%;
-            height: auto;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .product img.loaded {
-            opacity: 1;
-        }
-
-        button {
+        .upsell button {
             background-color: #28a745;
             color: white;
             border: none;
             padding: 10px 20px;
+            font-size: 1rem;
             cursor: pointer;
+            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
+        .upsell button:hover {
             background-color: #218838;
         }
 
-        .reviews {
-            margin-top: 20px;
-        }
-
-        .reviews h4 {
-            margin-bottom: 10px;
-        }
-
-        .reviews ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .reviews ul li {
-            background-color: #f8f9fa;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .reviews ul li.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .hidden-fee {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
         }
 
         footer {
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 10px 0;
-            width: 100%;
-            bottom: 0;
+            padding: 20px;
         }
 
         @media (max-width: 768px) {
-            .product {
-                width: calc(50% - 20px);
-            }
-
-            nav ul li a {
-                padding: 8px;
-                font-size: 14px;
-            }
-
-            .cart-dropdown,
-            .wishlist-dropdown {
-                width: 250px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .product {
-                width: 100%;
-            }
-
-            header {
+            .hero {
                 flex-direction: column;
-                align-items: flex-start;
+                text-align: center;
+                padding: 40px 20px;
+                /* Adjusted padding for mobile */
             }
 
-            nav ul {
-                flex-direction: column;
-                width: 100%;
+            .hero img {
+                max-width: 100%;
+                margin: 0 0 20px 0;
+                /* Adjusted margin for mobile */
             }
 
-            nav ul li {
-                margin-left: 0;
-                width: 100%;
+            .hero-content {
+                max-width: 100%;
             }
 
-            nav ul li a {
-                padding: 10px;
-                font-size: 16px;
+            .hero-content h2 {
+                font-size: 2rem;
+                /* Adjusted font size for mobile */
             }
 
-            .cart-dropdown,
-            .wishlist-dropdown {
-                width: 100%;
-                right: 0;
-                left: 0;
+            .hero-content ul li {
+                font-size: 1rem;
+                /* Adjusted font size for mobile */
             }
         }
     </style>
@@ -275,239 +308,108 @@
 
 <body>
     <header>
-        <div class="logo">collapsible collander shop</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li>
-                    <a href="#cart" onclick="toggleCartDropdown()">Cart (<span id="cart-count">0</span>)</a>
-                    <div class="cart-dropdown" id="cart-dropdown">
-                        <h3>Your Cart</h3>
-                        <ul id="cart-items">
-                            <!-- Cart items will be dynamically added here -->
-                        </ul>
-                        <div class="cart-actions">
-                            <button onclick="checkout()">Checkout</button>
-                            <button onclick="clearCart()">Clear Cart</button>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="#wishlist" onclick="toggleWishlistDropdown()">Wishlist (<span
-                            id="wishlist-count">0</span>)</a>
-                    <div class="wishlist-dropdown" id="wishlist-dropdown">
-                        <h3>Your Wishlist</h3>
-                        <ul id="wishlist-items">
-                            <!-- Wishlist items will be dynamically added here -->
-                        </ul>
-                        <div class="wishlist-actions">
-                            <button onclick="clearWishlist()">Clear Wishlist</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+        <h1>Collapsible Colander</h1>
+        <p>The Space-Saving Kitchen Tool You Can't Live Without!</p>
     </header>
 
-    <section id="home">
-        <h1>Welcome to MyShop</h1>
-        <p>Your one-stop shop for the best collapsible collanders in the market.</p>
-    </section>
-
-    <section id="products">
-        <h2>Featured Products</h2>
-        <div class="product-list">
-            <div class="product" data-id="1">
-                <img data-src="colander1.jpg" alt="Product 1" class="lazy">
-                <h3>Product 1</h3>
-                <p>$19.99</p>
-                <button onclick="addToCart('Product 1', 19.99)">Add to Cart</button>
-                <button onclick="addToWishlist('Product 1')">Add to Wishlist</button>
-                <div class="reviews">
-                    <h4>Reviews</h4>
-                    <ul id="reviews-1">
-                        <!-- Reviews for Product 1 -->
-                    </ul>
-                    <form onsubmit="submitReview(event, '1')">
-                        <input type="text" placeholder="Your name" required>
-                        <textarea placeholder="Your review" required></textarea>
-                        <button type="submit">Submit Review</button>
-                    </form>
-                </div>
-            </div>
-            <div class="product" data-id="2">
-                <img data-src="product2.jpg" alt="Product 2" class="lazy">
-                <h3>Product 2</h3>
-                <p>$29.99</p>
-                <button onclick="addToCart('Product 2', 29.99)">Add to Cart</button>
-                <button onclick="addToWishlist('Product 2')">Add to Wishlist</button>
-                <div class="reviews">
-                    <h4>Reviews</h4>
-                    <ul id="reviews-2">
-                        <!-- Reviews for Product 2 -->
-                    </ul>
-                    <form onsubmit="submitReview(event, '2')">
-                        <input type="text" placeholder="Your name" required>
-                        <textarea placeholder="Your review" required></textarea>
-                        <button type="submit">Submit Review</button>
-                    </form>
-                </div>
-            </div>
-            <!-- Add more products as needed -->
+    <section class="hero">
+        <img src="colander1.jpg" alt="Collapsible Colander" class="lazy">
+        <div class="hero-content">
+            <h2>Why You Need This Colander</h2>
+            <ul>
+                <li>Space-saving design - collapses to 2 inches!</li>
+                <li>Durable and dishwasher-safe.</li>
+                <li>Perfect for small kitchens and camping.</li>
+                <li>Easy to store in drawers or cabinets.</li>
+            </ul>
+            <button class="cta-button" onclick="openCheckout()">Checkout Now - Only $19.99!</button>
         </div>
     </section>
 
+    <section class="testimonials">
+        <h2>What Our Customers Are Saying</h2>
+        <div class="testimonial">
+            <p>"This colander has changed my life! It's so easy to store and use. I can't believe I waited this long to
+                get one!"</p>
+            <span>- Sarah L.</span>
+        </div>
+        <div class="testimonial">
+            <p>"I love how sturdy it is, and it collapses so small! Perfect for my tiny apartment kitchen."</p>
+            <span>- Mike T.</span>
+        </div>
+    </section>
+
+    <section class="scarcity">
+        <h2>Hurry, Limited Stock Available!</h2>
+        <p>Only <strong id="stock-count">50</strong> left in stock. Don't miss out!</p>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <h2>Checkout</h2>
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1">
+            <label for="address">Shipping Address</label>
+            <input type="text" id="address" name="address" required>
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required>
+            <label for="state">State</label>
+            <input type="text" id="state" name="state" required>
+            <label for="zip">ZIP Code</label>
+            <input type="text" id="zip" name="zip" required>
+            <p>Shipping Cost: <strong id="shipping-cost">$5.99</strong></p>
+            <p class="hidden-fee">*Includes a small handling fee of $2.99.</p>
+            <button onclick="completePurchase()">Complete Purchase</button>
+
+            <!-- Upsell Section -->
+            <div class="upsell">
+                <h3>Add More to Your Order</h3>
+                <p>Enhance your kitchen with these must-have items:</p>
+                <button onclick="addUpsell('Silicone Cooking Utensils', 14.99)">Add Silicone Cooking Utensils -
+                    $14.99</button>
+                <button onclick="addUpsell('Collapsible Measuring Cups', 9.99)">Add Collapsible Measuring Cups -
+                    $9.99</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2023 MyShop. All rights reserved.</p>
+        <p>&copy; 2023 Kitchen Innovations. All rights reserved.</p>
     </footer>
 
     <script>
         // JavaScript for the website
-        let cart = [];
-        let wishlist = [];
-        let total = 0;
+        const checkoutModal = document.getElementById('checkoutModal');
+        const shippingCostElement = document.getElementById('shipping-cost');
+        const hiddenFee = 2.99;
+        let upsellItems = [];
 
-        // Add to cart functionality
-        function addToCart(name, price) {
-            const existingItem = cart.find(item => item.name === name);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name, price, quantity: 1 });
+        function openCheckout() {
+            checkoutModal.classList.add('open');
+        }
+
+        function closeCheckout() {
+            checkoutModal.classList.remove('open');
+        }
+
+        function completePurchase() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const total = (quantity * 19.99) + 5.99 + hiddenFee + upsellItems.reduce((sum, item) => sum + item.price, 0);
+            alert(`Thank you for your purchase! Total: $${total.toFixed(2)}`);
+            closeCheckout();
+        }
+
+        function addUpsell(product, price) {
+            upsellItems.push({ product, price });
+            alert(`${product} added to your order!`);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === checkoutModal) {
+                closeCheckout();
             }
-            total += price;
-            updateCart();
-        }
-
-        // Update cart UI
-        function updateCart() {
-            const cartItems = document.getElementById('cart-items');
-            const cartCount = document.getElementById('cart-count');
-            cartItems.innerHTML = '';
-            cart.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    ${item.name} - $${item.price.toFixed(2)} x ${item.quantity}
-                    <button onclick="removeFromCart(${index})">Remove</button>
-                `;
-                cartItems.appendChild(li);
-            });
-            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-        }
-
-        // Remove item from cart
-        function removeFromCart(index) {
-            const item = cart[index];
-            total -= item.price * item.quantity;
-            cart.splice(index, 1);
-            updateCart();
-        }
-
-        // Clear cart
-        function clearCart() {
-            cart = [];
-            total = 0;
-            updateCart();
-        }
-
-        // Checkout functionality
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-            } else {
-                alert(`Thank you for your purchase! Total: $${total.toFixed(2)}`);
-                clearCart();
-            }
-        }
-
-        // Toggle cart dropdown
-        function toggleCartDropdown() {
-            const dropdown = document.getElementById('cart-dropdown');
-            dropdown.classList.toggle('open');
-        }
-
-        // Add to wishlist functionality
-        function addToWishlist(name) {
-            if (!wishlist.includes(name)) {
-                wishlist.push(name);
-                updateWishlist();
-            }
-        }
-
-        // Update wishlist UI
-        function updateWishlist() {
-            const wishlistItems = document.getElementById('wishlist-items');
-            const wishlistCount = document.getElementById('wishlist-count');
-            wishlistItems.innerHTML = '';
-            wishlist.forEach((item, index) => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    ${item}
-                    <button onclick="removeFromWishlist(${index})">Remove</button>
-                `;
-                wishlistItems.appendChild(li);
-            });
-            wishlistCount.textContent = wishlist.length;
-        }
-
-        // Remove item from wishlist
-        function removeFromWishlist(index) {
-            wishlist.splice(index, 1);
-            updateWishlist();
-        }
-
-        // Clear wishlist
-        function clearWishlist() {
-            wishlist = [];
-            updateWishlist();
-        }
-
-        // Toggle wishlist dropdown
-        function toggleWishlistDropdown() {
-            const dropdown = document.getElementById('wishlist-dropdown');
-            dropdown.classList.toggle('open');
-        }
-
-        // Submit review functionality
-        function submitReview(event, productId) {
-            event.preventDefault();
-            const form = event.target;
-            const name = form.querySelector('input').value;
-            const review = form.querySelector('textarea').value;
-            const reviewsList = document.getElementById(`reviews-${productId}`);
-            const li = document.createElement('li');
-            li.textContent = `${name}: ${review}`;
-            li.classList.add('visible');
-            reviewsList.appendChild(li);
-            form.reset();
-        }
-
-        // Lazy loading for images
-        document.addEventListener("DOMContentLoaded", function () {
-            const lazyImages = document.querySelectorAll('img.lazy');
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.add('loaded');
-                        observer.unobserve(img);
-                    }
-                });
-            });
-
-            lazyImages.forEach(img => {
-                observer.observe(img);
-            });
-
-            // Animate product cards
-            const products = document.querySelectorAll('.product');
-            products.forEach((product, index) => {
-                setTimeout(() => {
-                    product.classList.add('visible');
-                }, index * 200);
-            });
         });
     </script>
 </body>
