@@ -152,122 +152,6 @@
             font-size: 1.2rem;
         }
 
-        .checkout-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .checkout-modal.open {
-            display: flex;
-        }
-
-        .checkout-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .checkout-content h2 {
-            font-size: 1.8rem;
-            color: #ff6f61;
-            margin-bottom: 20px;
-        }
-
-        .checkout-content label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-
-        .checkout-content input,
-        .checkout-content select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .checkout-content button {
-            background-color: #ff6f61;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .checkout-content button:hover {
-            background-color: #e65a50;
-        }
-
-        .upsell {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .upsell h3 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .upsell p {
-            font-size: 1rem;
-            color: #666;
-        }
-
-        .upsell button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .upsell button:hover {
-            background-color: #218838;
-        }
-
-        .hidden-fee {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 10px;
-        }
-
         footer {
             background-color: #333;
             color: white;
@@ -306,12 +190,6 @@
             header p {
                 font-size: 1rem;
             }
-
-            .checkout-content {
-                width: 90%;
-                max-width: 90%;
-                padding: 15px;
-            }
         }
     </style>
 </head>
@@ -335,7 +213,7 @@
                 <li>Perfect for small kitchens and camping.</li>
                 <li>Easy to store in drawers or cabinets.</li>
             </ul>
-            <button class="cta-button" onclick="openCheckout()">Checkout Now - Only $19.99!</button>
+            <button class="cta-button" onclick="window.location.href='https://www.ebay.com/itm/186927061597'">Checkout Now - Only $19.99!</button>
         </div>
     </section>
 
@@ -357,95 +235,22 @@
         <p>Only <strong id="stock-count">50</strong> left in stock. Don't miss out!</p>
     </section>
 
-    <!-- Checkout Modal -->
-    <div class="checkout-modal" id="checkoutModal">
-        <div class="checkout-content">
-            <h2>Checkout</h2>
-            <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" name="quantity" min="1" value="1">
-            <label for="address">Shipping Address</label>
-            <input type="text" id="address" name="address" required>
-            <label for="city">City</label>
-            <input type="text" id="city" name="city" required>
-            <label for="state">State</label>
-            <input type="text" id="state" name="state" required>
-            <label for="zip">ZIP Code</label>
-            <input type="text" id="zip" name="zip" required>
-            <p>Shipping Cost: <strong id="shipping-cost">$5.99</strong></p>
-            <p>Tax: <strong id="tax">$1.99</strong></p>
-            <p>Total: <strong id="total">$27.97</strong></p>
-            <button onclick="completePurchase()">Complete Purchase</button>
-
-            <!-- Upsell Section -->
-            <div class="upsell">
-                <h3>Add More to Your Order</h3>
-                <p>Enhance your kitchen with these must-have items:</p>
-                <button onclick="addUpsell('Silicone Cooking Utensils', 14.99)">Add Silicone Cooking Utensils -
-                    $14.99</button>
-                <button onclick="addUpsell('Collapsible Measuring Cups', 9.99)">Add Collapsible Measuring Cups -
-                    $9.99</button>
-            </div>
-        </div>
-    </div>
-
     <footer>
         <p>&copy; 2023 Kitchen Innovations. All rights reserved.</p>
     </footer>
 
     <script>
         // JavaScript for the website
-        const checkoutModal = document.getElementById('checkoutModal');
-        const shippingCostElement = document.getElementById('shipping-cost');
-        const taxElement = document.getElementById('tax');
-        const totalElement = document.getElementById('total');
-        const hiddenFee = 2.99;
-        let upsellItems = [];
+        const stockCountElement = document.getElementById('stock-count');
+        let stockCount = 50;
 
-        function openCheckout() {
-            checkoutModal.classList.add('open');
-            updateTotal();
-        }
-
-        function closeCheckout() {
-            checkoutModal.classList.remove('open');
-        }
-
-        function updateTotal() {
-            const quantity = parseInt(document.getElementById('quantity').value);
-            const subtotal = (quantity * 19.99) + 5.99 + hiddenFee + upsellItems.reduce((sum, item) => sum + item.price, 0);
-            const tax = subtotal * 0.07; // Assuming 7% tax rate
-            const total = subtotal + tax;
-            taxElement.textContent = `$${tax.toFixed(2)}`;
-            totalElement.textContent = `$${total.toFixed(2)}`;
-        }
-
-        function completePurchase() {
-            const quantity = parseInt(document.getElementById('quantity').value);
-            const subtotal = (quantity * 19.99) + 5.99 + hiddenFee + upsellItems.reduce((sum, item) => sum + item.price, 0);
-            const tax = subtotal * 0.07; // Assuming 7% tax rate
-            const total = subtotal + tax;
-
-            // Redirect to PayPal with the total amount
-            const paypalEmail = "qualitytopsofficialtv@gmail.com"; // Your PayPal email
-            const paymentUrl = `https://www.paypal.com/ncp/payment/NZX8X8T8YQ234`;
-            window.location.href = paymentUrl;
-        }
-
-        function addUpsell(product, price) {
-            upsellItems.push({ product, price });
-            alert(`${product} added to your order!`);
-            updateTotal();
-        }
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (event) => {
-            if (event.target === checkoutModal) {
-                closeCheckout();
+        // Simulate stock count reduction
+        setInterval(() => {
+            if (stockCount > 0) {
+                stockCount--;
+                stockCountElement.textContent = stockCount;
             }
-        });
-
-        // Update total when quantity changes
-        document.getElementById('quantity').addEventListener('input', updateTotal);
+        }, 10000); // Reduce stock every 10 seconds
     </script>
 </body>
 
